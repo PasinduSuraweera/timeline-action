@@ -1,5 +1,9 @@
 <div align="center">
-  <img alt="Timeline logo: seven contribution squares riding a wave" src="https://raw.githubusercontent.com/PasinduSuraweera/timeline/main/docs/logo/mark.svg" width="72" />
+  <picture>
+    <source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/PasinduSuraweera/timeline/main/docs/logo/lockup-dark.svg" />
+    <source media="(prefers-color-scheme: light)" srcset="https://raw.githubusercontent.com/PasinduSuraweera/timeline/main/docs/logo/lockup-light.svg" />
+    <img alt="Timeline" src="https://raw.githubusercontent.com/PasinduSuraweera/timeline/main/docs/logo/lockup-dark.svg" width="300" />
+  </picture>
   <br><br>
   <picture>
     <source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/PasinduSuraweera/timeline/main/docs/banner-dark.svg" />
