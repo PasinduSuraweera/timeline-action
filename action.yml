@@ -1,0 +1,114 @@
+name: "Timeline"
+description: "Draw your GitHub contribution year as an animated wave SVG and keep it in your repo"
+author: "PasinduSuraweera"
+branding:
+  icon: "activity"
+  color: "orange"
+
+inputs:
+  user:
+    description: "GitHub username whose calendar is read"
+    required: true
+  out:
+    description: "Path for the generated SVG"
+    default: "assets/timeline.svg"
+  token:
+    description: "Token used to read exact daily counts"
+    default: ${{ github.token }}
+  strict:
+    description: "Fail rather than drawing the stand-in swell"
+    default: "false"
+  theme:
+    description: "ember, ice, matrix, grape, rose, gold, mono, daylight or paper"
+    default: ""
+  accent:
+    description: "Hex colour overriding the theme accent"
+    default: ""
+  bg:
+    description: "Hex background colour"
+    default: ""
+  hot:
+    description: "Hex colour for the cap on the ridge"
+    default: ""
+  glint:
+    description: "Hex colour for the travelling sparkle"
+    default: ""
+  width:
+    description: "Band width in pixels, 320 to 1600"
+    default: ""
+  height:
+    description: "Band height in pixels, 60 to 400"
+    default: ""
+  cell:
+    description: "Size of one dot in pixels, 2 to 10"
+    default: ""
+  speed:
+    description: "Seconds for one full scroll, 4 to 300"
+    default: ""
+  smooth:
+    description: "Swell smoothing, 0.2 to 5"
+    default: ""
+  weeks:
+    description: "Weeks of history to draw, 8 to 53"
+    default: ""
+  rider:
+    description: "surfer, sail, buoy, flag or none"
+    default: ""
+  rider_at:
+    description: "Where the rider sits, 0 to 100 percent"
+    default: ""
+  glints:
+    description: "Sparkle along the crest"
+    default: ""
+  dots:
+    description: "The dim dot grid behind the water"
+    default: ""
+  border:
+    description: "Hairline border around the band"
+    default: ""
+  renderer:
+    description: "Tag or branch of PasinduSuraweera/timeline to draw with"
+    default: "v1"
+
+runs:
+  using: "composite"
+  steps:
+    - name: Fetch the renderer
+      shell: bash
+      env:
+        REF: ${{ inputs.renderer }}
+      run: |
+        rm -rf "$RUNNER_TEMP/timeline"
+        git clone --quiet --depth 1 --branch "$REF" https://github.com/PasinduSuraweera/timeline "$RUNNER_TEMP/timeline"
+
+    - name: Render the contribution wave
+      shell: bash
+      env:
+        GITHUB_TOKEN: ${{ inputs.token }}
+        IN_USER: ${{ inputs.user }}
+        IN_OUT: ${{ inputs.out }}
+        IN_STRICT: ${{ inputs.strict }}
+        IN_THEME: ${{ inputs.theme }}
+        IN_ACCENT: ${{ inputs.accent }}
+        IN_BG: ${{ inputs.bg }}
+        IN_HOT: ${{ inputs.hot }}
+        IN_GLINT: ${{ inputs.glint }}
+        IN_WIDTH: ${{ inputs.width }}
+        IN_HEIGHT: ${{ inputs.height }}
+        IN_CELL: ${{ inputs.cell }}
+        IN_SPEED: ${{ inputs.speed }}
+        IN_SMOOTH: ${{ inputs.smooth }}
+        IN_WEEKS: ${{ inputs.weeks }}
+        IN_RIDER: ${{ inputs.rider }}
+        IN_RIDER_AT: ${{ inputs.rider_at }}
+        IN_GLINTS: ${{ inputs.glints }}
+        IN_DOTS: ${{ inputs.dots }}
+        IN_BORDER: ${{ inputs.border }}
+      run: |
+        args=(--user "$IN_USER" --out "$IN_OUT"
+              --theme "$IN_THEME" --accent "$IN_ACCENT" --bg "$IN_BG" --hot "$IN_HOT" --glint "$IN_GLINT"
+              --width "$IN_WIDTH" --height "$IN_HEIGHT" --cell "$IN_CELL" --speed "$IN_SPEED"
+              --smooth "$IN_SMOOTH" --weeks "$IN_WEEKS" --rider "$IN_RIDER" --rider_at "$IN_RIDER_AT"
+              --glints "$IN_GLINTS" --dots "$IN_DOTS" --border "$IN_BORDER")
+        if [ "$IN_STRICT" = "true" ]; then args+=(--strict); fi
+        python3 "$RUNNER_TEMP/timeline/cli.py" "${args[@]}"
