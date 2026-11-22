@@ -1,4 +1,6 @@
 <div align="center">
+  <img alt="Timeline logo: seven contribution squares riding a wave" src="https://raw.githubusercontent.com/PasinduSuraweera/timeline/main/docs/logo/mark.svg" width="72" />
+  <br><br>
   <picture>
     <source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/PasinduSuraweera/timeline/main/docs/banner-dark.svg" />
     <source media="(prefers-color-scheme: light)" srcset="https://raw.githubusercontent.com/PasinduSuraweera/timeline/main/docs/banner-light.svg" />
