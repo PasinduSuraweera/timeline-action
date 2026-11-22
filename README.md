@@ -18,7 +18,7 @@
 </div>
 
   [market-badge]: https://badgen.net/badge/marketplace/Timeline/ff6a3d?icon=github&labelColor=374151
-  [market-url]: https://github.com/marketplace/actions/timeline
+  [market-url]: https://github.com/marketplace/actions/timeline-contribution-wave
   [release-badge]: https://badgen.net/github/release/PasinduSuraweera/timeline-action?labelColor=374151&color=ff6a3d
   [release-url]: https://github.com/PasinduSuraweera/timeline-action/releases
   [site-badge]: https://badgen.net/badge/site/timeline-readme.vercel.app/ff6a3d?labelColor=374151
